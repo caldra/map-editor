@@ -10,12 +10,12 @@ public class Grid {
     private static int PADDING;
 
     public Grid(){
-        cols = 70;
-        rows = 70;
-        cellSize = 10;
+        cols = 30;
+        rows = 30;
+        cellSize = 20;
         PADDING = 10;
-        grid = new Rectangle(PADDING,PADDING,cols*cellSize,rows*cellSize);
-        show();
+        //grid = new Rectangle(PADDING,PADDING,cols*cellSize,rows*cellSize);
+        //show();
     }
 
 
@@ -36,7 +36,8 @@ public class Grid {
     }
 
     public int translateCols(int col){
-        return col*cellSize+PADDING;
+        int realCol = col*cellSize+PADDING;
+        return realCol;
     }
 
     public int translateRows(int row){
