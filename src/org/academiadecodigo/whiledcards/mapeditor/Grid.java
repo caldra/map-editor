@@ -6,29 +6,31 @@ public class Grid {
     private int cols;
     private int rows;
     private int cellSize;
-    private Rectangle grid;
     private static int PADDING;
+    private Cell[][] cells;
 
     public Grid(){
         cols = 30;
         rows = 30;
         cellSize = 20;
         PADDING = 10;
-        //grid = new Rectangle(PADDING,PADDING,cols*cellSize,rows*cellSize);
-        //show();
+        constructGrid();
     }
 
 
-    private void show(){
-        grid.draw();
-    }
+    private void constructGrid(){
 
-    public int getCols(){
-        return cols;
-    }
+        cells = new Cell[cols][];
 
-    public int getRows(){
-        return rows;
+        for(int n = 0; n<cells.length; n++){
+            cells[n] = new Cell[rows];
+        }
+
+        for(int i = 0; i < cols ; i++){
+            for(int j =0; j < rows; j++){
+                cells[i][j] = new Cell(i,j,this);
+            }
+        }
     }
 
     public int getCellSize(){
