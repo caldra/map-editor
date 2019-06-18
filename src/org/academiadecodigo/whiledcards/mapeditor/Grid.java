@@ -33,6 +33,14 @@ public class Grid {
         }
     }
 
+    public int getCols(){
+        return cols;
+    }
+
+    public int getRows(){
+        return rows;
+    }
+
     public int getCellSize(){
         return cellSize;
     }
@@ -44,5 +52,9 @@ public class Grid {
 
     public int translateRows(int row){
         return row*cellSize+PADDING;
+    }
+
+    public void change(int col, int row){
+        cells[col][row].edit();
     }
 }
