@@ -23,6 +23,14 @@ public class Cursor implements KeyboardHandler {
         cursor.fill();
     }
 
+    public int getCol(){
+        return col;
+    }
+
+    public int getRow(){
+        return row;
+    }
+
     private void moveUp() {
         if (row == 0) {
             row = 0;
@@ -63,12 +71,6 @@ public class Cursor implements KeyboardHandler {
         cursor.fill();
     }
 
-    private void paint() {
-        grid.change(col, row);
-    }
-
-
-
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_LEFT) {
@@ -85,10 +87,6 @@ public class Cursor implements KeyboardHandler {
 
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_DOWN) {
             moveDown();
-        }
-
-        if (keyboardEvent.getKey() == KeyboardEvent.KEY_SPACE) {
-            paint();
         }
 
     }

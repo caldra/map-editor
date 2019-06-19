@@ -5,7 +5,7 @@ import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 public class Grid {
     private int cols;
     private int rows;
-    private int cellSize;
+    private static int cellSize;
     private static int PADDING;
     private Cell[][] cells;
 
@@ -48,6 +48,10 @@ public class Grid {
     public int translateCols(int col){
         int realCol = col*cellSize+PADDING;
         return realCol;
+    }
+
+    public Cell[][] getCells() {
+        return cells;
     }
 
     public int translateRows(int row){
