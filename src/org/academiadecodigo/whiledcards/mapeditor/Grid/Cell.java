@@ -1,4 +1,4 @@
-package org.academiadecodigo.whiledcards.mapeditor;
+package org.academiadecodigo.whiledcards.mapeditor.Grid;
 
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
@@ -18,21 +18,22 @@ public class Cell {
     }
 
 
-    public void edit(){
+    public void edit(Color color){
         if (drawn){
             delete();
         }else {
-            paint();
+            paint(color);
         }
     }
 
-    private void paint(){
+    private void paint(Color color){
+        cell.setColor(color);
         cell.fill();
         drawn = true;
     }
 
     public void delete(){
-        cell.delete();
+        cell.setColor(Color.BLACK);
         cell.draw();
         drawn = false;
     }

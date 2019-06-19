@@ -1,4 +1,4 @@
-package org.academiadecodigo.whiledcards.mapeditor;
+package org.academiadecodigo.whiledcards.mapeditor.Grid;
 
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
@@ -7,10 +7,11 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 
-public class Cursor implements KeyboardHandler {
+public class Cursor{
     private Grid grid;
     private int col;
     private int row;
+    private Color paintColor;
     private org.academiadecodigo.simplegraphics.graphics.Rectangle cursor;
 
 
@@ -31,7 +32,11 @@ public class Cursor implements KeyboardHandler {
         return row;
     }
 
-    private void moveUp() {
+    public void setPaintColor(Color color){
+        paintColor = color;
+    }
+
+    public void moveUp() {
         if (row == 0) {
             row = 0;
             return;
@@ -41,7 +46,7 @@ public class Cursor implements KeyboardHandler {
         cursor.fill();
     }
 
-    private void moveDown() {
+    public void moveDown() {
         if (row == grid.getRows() - 1) {
             row = grid.getRows() - 1;
             return;
@@ -51,7 +56,7 @@ public class Cursor implements KeyboardHandler {
         cursor.fill();
     }
 
-    private void moveLeft() {
+    public void moveLeft() {
         if (col == 0) {
             col = 0;
             return;
@@ -61,7 +66,7 @@ public class Cursor implements KeyboardHandler {
         cursor.fill();
     }
 
-    private void moveRight() {
+    public void moveRight() {
         if (col == grid.getCols() - 1) {
             col = grid.getCols() - 1;
             return;
@@ -71,59 +76,5 @@ public class Cursor implements KeyboardHandler {
         cursor.fill();
     }
 
-    @Override
-    public void keyPressed(KeyboardEvent keyboardEvent) {
-        if (keyboardEvent.getKey() == KeyboardEvent.KEY_LEFT) {
-            moveLeft();
-        }
 
-        if (keyboardEvent.getKey() == KeyboardEvent.KEY_RIGHT) {
-            moveRight();
-        }
-
-        if (keyboardEvent.getKey() == KeyboardEvent.KEY_UP) {
-            moveUp();
-        }
-
-        if (keyboardEvent.getKey() == KeyboardEvent.KEY_DOWN) {
-            moveDown();
-        }
-
-    }
-
-    @Override
-    public void keyReleased(KeyboardEvent keyboardEvent) {
-
-    }
-
-    public void assembleKeyboard() {
-
-        Keyboard keyboard = new Keyboard(this);
-
-        KeyboardEvent eventLeft = new KeyboardEvent();
-        eventLeft.setKey(KeyboardEvent.KEY_LEFT);
-        eventLeft.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-        keyboard.addEventListener(eventLeft);
-
-        eventLeft = new KeyboardEvent();
-        eventLeft.setKey(KeyboardEvent.KEY_RIGHT);
-        eventLeft.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-        keyboard.addEventListener(eventLeft);
-
-        eventLeft = new KeyboardEvent();
-        eventLeft.setKey(KeyboardEvent.KEY_UP);
-        eventLeft.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-        keyboard.addEventListener(eventLeft);
-
-        eventLeft = new KeyboardEvent();
-        eventLeft.setKey(KeyboardEvent.KEY_DOWN);
-        eventLeft.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-        keyboard.addEventListener(eventLeft);
-
-        eventLeft = new KeyboardEvent();
-        eventLeft.setKey(KeyboardEvent.KEY_SPACE);
-        eventLeft.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-        keyboard.addEventListener(eventLeft);
-
-    }
 }

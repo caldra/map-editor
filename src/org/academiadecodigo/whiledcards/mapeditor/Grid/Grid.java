@@ -1,19 +1,20 @@
-package org.academiadecodigo.whiledcards.mapeditor;
+package org.academiadecodigo.whiledcards.mapeditor.Grid;
 
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.simplegraphics.graphics.Color;
 
 public class Grid {
     private int cols;
     private int rows;
-    private static int cellSize;
-    private static int PADDING;
+    private int width;
+    private int cellSize;
+    private static int PADDING = 10;
     private Cell[][] cells;
 
-    public Grid(){
-        cols = 30;
-        rows = 30;
-        cellSize = 20;
-        PADDING = 10;
+    public Grid(int cols, int rows, int cellSize){
+        this.cols = cols;
+        this.rows = rows;
+        this.cellSize = cellSize;
+        width = cols*cellSize+PADDING;
         constructGrid();
     }
 
@@ -54,11 +55,16 @@ public class Grid {
         return cells;
     }
 
+    public int getWidth(){
+        return width;
+    }
+
     public int translateRows(int row){
         return row*cellSize+PADDING;
     }
 
-    public void change(int col, int row){
-        cells[col][row].edit();
+    public void change(int col, int row, Color color)
+    {
+        cells[col][row].edit(color);
     }
 }

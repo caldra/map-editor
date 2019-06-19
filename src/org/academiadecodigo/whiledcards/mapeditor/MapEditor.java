@@ -1,54 +1,56 @@
 package org.academiadecodigo.whiledcards.mapeditor;
 
-import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
-import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
-import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
-import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
+import org.academiadecodigo.simplegraphics.graphics.Color;
+import org.academiadecodigo.whiledcards.mapeditor.Grid.Cell;
+import org.academiadecodigo.whiledcards.mapeditor.Grid.Cursor;
+import org.academiadecodigo.whiledcards.mapeditor.Grid.Grid;
+import org.academiadecodigo.whiledcards.mapeditor.Grid.Menu;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-
-public class Map implements KeyboardHandler{
+public class MapEditor {
 
     private Grid grid;
     private Cursor cursor;
+    private MapEditorSaver mapSaver;
+    private KeyboardManager keyboardManager;
+    private Color newColor;
+    // TODO finish menu Grid
+    private Menu menu;
 
-    public Map(){
-        Grid grid = new Grid();
-        Cursor cursor = new Cursor(grid);
-        cursor.assembleKeyboard();
-        assembleKeyboard();
+    public MapEditor(){
+        grid = new Grid(30, 30,20);
+        cursor = new Cursor(grid);
+        //TODO finish menu Gid
+        menu = new Menu();
+        mapSaver = new MapEditorSaver();
+        keyboardManager = new KeyboardManager(cursor, this, menu);
     }
 
-    public void assembleKeyboard(){
-        Keyboard keyboard = new Keyboard(this);
-
-        KeyboardEvent eventSave = new KeyboardEvent();
-        eventSave.setKey(KeyboardEvent.KEY_S);
-        eventSave.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
-        keyboard.addEventListener(eventSave);
+    public Grid getGrid(){
+        return grid;
     }
 
     public void save(){
-        try {
-            FileOutputStream output = new FileOutputStream("save");
-        }catch (FileNotFoundException e){
-            e.printStackTrace();
-        }
+        Cell[][] cells = grid.getCells();
+        String saveData = "";
 
+        for(int i = 0; i < grid.getCols(); i++){
+                for(int j =0; j < grid.getRows(); j++){
+                    if(!cells[j][i].getDrawn()){
+                        saveData = saveData + "0 ";
+                    }else{
+                        saveData = saveData + "1 ";
+                    }
+                }
+                saveData = saveData+"\n";
+            }
+        mapSaver.save(saveData);
     }
 
-
-
-    @Override
-    public void keyPressed(KeyboardEvent keyboardEvent) {
-
+    public void load(){
+        mapSaver.load(grid);
     }
 
-    @Override
-    public void keyReleased(KeyboardEvent keyboardEvent) {
-        if (keyboardEvent.getKey() == KeyboardEvent.KEY_S) {
-            System.out.println("saved");
-        }
+    public void changeColor(Color color){
+        newColor = color;
     }
 }
